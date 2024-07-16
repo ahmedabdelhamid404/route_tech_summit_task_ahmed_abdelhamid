@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build the Angular app
-        run: npm run build -- --base-href="https://ahmedabdelhamid404.github.io/route_tech_summit_task_ahmed_abdelhamid"
+        run: npm run build -- --base-href="/route_tech_summit_task_ahmed_abdelhamid/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
