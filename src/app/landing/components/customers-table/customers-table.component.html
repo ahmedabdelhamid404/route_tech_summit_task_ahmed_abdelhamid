@@ -1,0 +1,77 @@
+<form class="w-75 mx-auto mb-3" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="filterType">Filter Type</label>
+        <select class="form-control" formControlName="filterType">
+          <option [defaultSelected]="true" value="1">Transactions</option>
+          <option value="2">Client Name</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="value">Enter Value</label>
+        <input
+          type="text"
+          class="form-control"
+          id="value"
+          placeholder="Enter Value"
+          formControlName="value"
+        />
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-primary w-100">
+        Filter
+      </button>
+    </div>
+    @if(isFormDirty) {
+    <div class="col-md-12">
+      <button (click)="resetForm()" class="btn btn-outline-warning w-100">
+        Clear Filters
+      </button>
+    </div>
+    }
+  </div>
+</form>
+
+<table
+  class="table table-bordered table-striped table-responsive-md w-75 text-center align-middle mx-auto rounded rounded-2 overflow-hidden"
+>
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Client Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  @if(customersData && customersData.transactions.length > 0) {
+  <tbody>
+    @for (customer of customersData?.transactions; track customer?.id; let i =
+    $index) {
+    <tr>
+      <td>{{ i + 1 }}</td>
+      <td>{{ customer?.customer_id | getName : customersData.customers }}</td>
+      <td>{{ customer?.date | date : "dd/MM/yyyy" }}</td>
+      <td>{{ customer?.amount | currency : "EGP " }}</td>
+      <td>
+        <button
+          class="btn btn-outline-success"
+          (click)="openChartModal(customer)"
+        >
+          Charts
+        </button>
+      </td>
+    </tr>
+
+    }
+  </tbody>
+  }@else {
+  <tr>
+    <td class="text-center py-3" colspan="5">No data found</td>
+  </tr>
+  }
+</table>
