@@ -16,13 +16,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the Angular app
-        run: npm run build -- --base-href="route_tech_summit_task_ahmed_abdelhamid"
+        run: npm run build -- --base-href="https://github.com/ahmedabdelhamid404/route_tech_summit_task_ahmed_abdelhamid"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
