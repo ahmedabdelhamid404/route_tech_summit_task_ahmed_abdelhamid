@@ -29,3 +29,23 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/browser/browser
+
+      # Install Java (if needed)
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'  # Use the Temurin distribution of OpenJDK
+          java-version: '17'  # Specify the Java version needed
+
+      # Package the build output into a WAR file
+      - name: Package WAR file
+        run: |
+          cd dist/browser/browser
+          jar -cvf test.war *
+
+      # Upload the WAR file as an artifact
+      - name: Upload WAR file
+        uses: actions/upload-artifact@v3
+        with:
+          name: your-angular-project.war
+          path: dist/your-angular-project.war
