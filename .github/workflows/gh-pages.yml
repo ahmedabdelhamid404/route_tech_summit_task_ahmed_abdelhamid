@@ -43,9 +43,20 @@ jobs:
           cd dist/browser/browser
           jar -cvf test.war *
 
-      # Upload the WAR file as an artifact
-      - name: Upload WAR file
-        uses: actions/upload-artifact@v3
-        with:
-          name: test.war
-          path: dist//browser/browser/test.war
+     # Create or update the production branch with the WAR file
+      - name: Deploy WAR to production branch
+        run: |
+          git config --global user.name "ahmedabdelhamid404"
+          git config --global user.email "ahmedsoftwaredev3@gmail.com"
+          
+          # Create a new branch or checkout the existing production branch
+          git fetch origin
+          git checkout -b production origin/production || git checkout --orphan production
+          
+          # Copy the WAR file to the root directory of the production branch
+          cp dist/browser/browser/test.war .
+
+          # Add, commit, and push the WAR file to the production branch
+          git add test.war
+          git commit -m "Deploy WAR file to production branch"
+          git push origin production
