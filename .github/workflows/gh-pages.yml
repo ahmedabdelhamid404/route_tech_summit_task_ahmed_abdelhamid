@@ -47,5 +47,5 @@ jobs:
       - name: Upload WAR file
         uses: actions/upload-artifact@v3
         with:
-          name: your-angular-project.war
-          path: dist/your-angular-project.war
+          name: test.war
+          path: dist//browser/browser/test.war
